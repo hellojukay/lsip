@@ -4,13 +4,17 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 )
 
 // GetPathDirs 获取PATH 所设置的所有文件夹
 func GetPathDirs() []string {
 	paths := os.Getenv("PATH")
-	return strings.Split(paths, ";")
+	if runtime.GOOS == "windows" {
+		return strings.Split(paths, ";")
+	}
+	return strings.Split(paths, ":")
 }
 
 // ListDir list file in dir
