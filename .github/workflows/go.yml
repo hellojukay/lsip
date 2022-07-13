@@ -1,0 +1,27 @@
+name: check
+on: [push, pull_request]
+jobs:
+  check:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+    runs-on: ${{ matrix.os }}
+    name: Build
+    steps:
+      - name: Set up Go 1.18
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.18
+      - name: Check out source code
+        uses: actions/checkout@v1
+
+      - name: Build
+        run: |
+          go install github.com/mitchellh/gox@latest
+          mkdir dist
+          perl build.pl
+      - name: Test
+        run: go test -v  util.go util_test.go
