@@ -1,7 +1,7 @@
 # lsip
-list file in $PATH
+List files in $PATH
 
-# install
+# Install
 ```
 go install github.com/hellojukay/lsip@latest
 ```
